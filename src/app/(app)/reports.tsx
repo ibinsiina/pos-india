@@ -1,9 +1,9 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ArrowLeft, FileBarChart, Download, FileText, TrendingUp, TrendingDown } from "lucide-react-native";
 import { useRouter } from "expo-router";
-import Card from "../../../components/Card";
+import { ArrowLeft, Download, FileBarChart, FileText, TrendingDown, TrendingUp } from "lucide-react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../../components/Button";
+import Card from "../../../components/Card";
 import "../../../global.css";
 
 export default function ReportsScreen() {
@@ -37,8 +37,8 @@ export default function ReportsScreen() {
                         <Text className="font-sans-medium text-muted-foreground">Net Profit</Text>
                         <Text className="font-sans-bold text-green-600">₹ 85,500</Text>
                     </View>
-                    <Button 
-                        title="View Detailed P&L" 
+                    <Button
+                        title="View Detailed P&L"
                         variant="secondary"
                         className="py-3 h-12"
                     />
@@ -54,8 +54,8 @@ export default function ReportsScreen() {
                             <Text className="font-sans-bold text-base text-primary">GSTR-1</Text>
                             <Text className="font-sans-medium text-xs text-muted-foreground">Sales Return</Text>
                         </View>
-                        <Button 
-                            title="Generate" 
+                        <Button
+                            title="Generate"
                             className="h-9 px-4 rounded-lg"
                             textClassName="text-xs"
                         />
@@ -66,8 +66,8 @@ export default function ReportsScreen() {
                             <Text className="font-sans-bold text-base text-primary">GSTR-3B</Text>
                             <Text className="font-sans-medium text-xs text-muted-foreground">Monthly Return</Text>
                         </View>
-                        <Button 
-                            title="Generate" 
+                        <Button
+                            title="Generate"
                             className="h-9 px-4 rounded-lg"
                             textClassName="text-xs"
                         />

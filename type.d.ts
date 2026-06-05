@@ -54,10 +54,51 @@ declare global {
     interface Party {
         id: string;
         name: string;
-        gstin: string;
+        gstin?: string;
         phone: string;
         balance: number;
-        type: "customer" | "vendor";
+        type: "customer" | "vendor" | "both";
+        pan?: string;
+        contactPerson?: string;
+        alternatePhone?: string;
+        email?: string;
+        billingAddress?: {
+            street?: string;
+            city?: string;
+            state?: string;
+            pinCode?: string;
+        };
+        shippingAddress?: {
+            sameAsBilling?: boolean;
+            street?: string;
+            city?: string;
+            state?: string;
+            pinCode?: string;
+        };
+        balanceType?: "receivable" | "payable";
+        creditLimit?: number;
+        creditPeriod?: number;
+        priceList?: "retail" | "wholesale" | "dealer";
+        bankDetails?: {
+            holderName?: string;
+            bankName?: string;
+            accountNumber?: string;
+            ifsc?: string;
+        };
+        paymentTerms?: string;
+        supplierCode?: string;
+        businessCategory?: string;
+        msmeNumber?: string;
+        website?: string;
+        notes?: string;
+        tags?: string;
+        salesperson?: string;
+        partyCode?: string;
+        documents?: {
+            gst?: boolean;
+            pan?: boolean;
+            other?: boolean;
+        };
     }
 
     interface Item {
@@ -68,15 +109,80 @@ declare global {
         hsn_sac: string;
         stock?: number;
         gst_rate: number;
+        unit?: string;
+        purchasePrice?: number;
+        description?: string;
+        sku?: string;
+        barcode?: string;
+        category?: string;
+        minimumStock?: number;
+        taxType?: "exclusive" | "inclusive";
+        cess?: number;
+        openingStock?: number;
+        images?: boolean;
+    }
+
+    interface InvoiceItem {
+        id: string;
+        productId?: string;
+        name: string;
+        hsn_sac?: string;
+        qty: number;
+        unit: string;
+        rate: number;
+        discount?: number;
+        discountType?: "percentage" | "flat";
+        gst_rate: number;
+        tax_amount: number;
+        line_total: number;
     }
 
     interface Invoice {
         id: string;
         number: string;
         date: string;
+        dueDate?: string;
+        financialYear?: string;
+        type: "Tax Invoice" | "Proforma Invoice" | "Credit Note" | "Debit Note" | "Export Invoice" | "Delivery Challan";
+        status: "Draft" | "Sent" | "Partially Paid" | "Paid" | "Overdue" | "Cancelled" | "Pending";
+        
+        customerId: string;
         customerName: string;
-        status: "Paid" | "Pending" | "Overdue";
+        
+        items: InvoiceItem[];
+        
+        subtotal: number;
+        discountAmount: number;
+        cgstAmount: number;
+        sgstAmount: number;
+        igstAmount: number;
+        roundOff: number;
         total: number;
+
+        paymentTerms?: string;
+        paymentMode?: string;
+        
+        transport?: {
+            deliveryDate?: string;
+            vehicleNumber?: string;
+            transporterName?: string;
+            lrNumber?: string;
+            dispatchFrom?: string;
+            dispatchThrough?: string;
+            ewayBillNumber?: string;
+            ewayBillDate?: string;
+        };
+        
+        notes?: string;
+        internalNotes?: string;
+        
+        metadata?: {
+            createdAt?: string;
+            createdBy?: string;
+            approvedStatus?: "Pending" | "Approved" | "Rejected";
+            approvedBy?: string;
+            approvedAt?: string;
+        };
     }
 
     interface Payment {

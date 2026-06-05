@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, Image, ImageBackground } from "react-native";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "../../global.css";
@@ -17,20 +17,24 @@ export default function SplashScreen() {
   }, [router]);
 
   return (
-    <View className="flex-1 items-center justify-center bg-[#1c1c1e]">
+    <ImageBackground 
+      source={require("../../assets/images/splashpattern.png")} 
+      className="flex-1 items-center justify-center bg-[#1c1c1e]"
+      resizeMode="cover"
+    >
       <StatusBar style="light" />
       
-      {/* Central Logo Placeholder */}
       <View className="flex-1 justify-center items-center">
-        <Text className="text-white text-[120px] font-sans-extrabold tracking-tighter leading-none">
-          B
-        </Text>
+        <Image 
+          source={require("../../assets/images/icon.png")} 
+          style={{ width: 160, height: 160 }}
+          resizeMode="contain"
+        />
       </View>
 
-      {/* Loading indicator at bottom */}
       <View className="pb-20">
         <ActivityIndicator size="large" color="#ffffff" />
       </View>
-    </View>
+    </ImageBackground>
   );
 }

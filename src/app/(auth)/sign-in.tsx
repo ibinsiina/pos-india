@@ -1,9 +1,10 @@
-import { Text, View, Pressable, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AuthInput from "../../../components/AuthInput";
 import Button from "../../../components/Button";
+import { icons } from "../../../constants/icons";
 import "../../../global.css";
 
 export default function SignInScreen() {
@@ -12,12 +13,12 @@ export default function SignInScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <StatusBar style="dark" />
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24 }}>
-          
+
           <View className="mt-8 mb-10">
             <Text className="text-3xl font-sans-bold text-primary mb-2">
               Login to your account
@@ -27,16 +28,16 @@ export default function SignInScreen() {
             </Text>
           </View>
 
-          <AuthInput 
-            label="Phone" 
-            placeholder="+91   Enter your phone number" 
+          <AuthInput
+            label="Phone"
+            placeholder="+91   Enter your phone number"
             keyboardType="phone-pad"
           />
 
-          <AuthInput 
-            label="Password" 
-            placeholder="Enter password" 
-            isPassword 
+          <AuthInput
+            label="Password"
+            placeholder="Enter password"
+            isPassword
           />
 
           <View className="flex-row justify-start mt-2 mb-8">
@@ -50,7 +51,7 @@ export default function SignInScreen() {
             </Pressable>
           </View>
 
-          <Button 
+          <Button
             title="Login"
             onPress={() => router.push("/(app)/dashboard")}
             className="w-full mb-6"
@@ -74,10 +75,11 @@ export default function SignInScreen() {
           </View>
 
           <Pressable className="w-full h-14 bg-white border border-border items-center justify-center rounded-xl flex-row">
-            {/* Google G icon placeholder */}
-            <View className="size-6 rounded-full bg-blue-500 mr-3 items-center justify-center">
-              <Text className="text-white font-sans-bold text-xs">G</Text>
-            </View>
+            <Image 
+              source={icons.google} 
+              style={{ width: 24, height: 24, marginRight: 12 }} 
+              resizeMode="contain" 
+            />
             <Text className="text-base font-sans-medium text-primary">
               Sign Up with Google
             </Text>

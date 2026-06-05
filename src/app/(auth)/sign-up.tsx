@@ -1,8 +1,8 @@
-import { Text, View, Pressable, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { ArrowRight } from "lucide-react-native";
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AuthInput from "../../../components/AuthInput";
 import Button from "../../../components/Button";
 import "../../../global.css";
@@ -13,12 +13,12 @@ export default function SignUpScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
       <StatusBar style="dark" />
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24 }}>
-          
+
           <View className="mt-8 mb-8">
             <Text className="text-3xl font-sans-bold text-primary mb-2">
               Register an account
@@ -28,34 +28,34 @@ export default function SignUpScreen() {
             </Text>
           </View>
 
-          <AuthInput 
-            label="First Name" 
-            placeholder="Enter your first name" 
+          <AuthInput
+            label="First Name"
+            placeholder="Enter your first name"
             required
           />
 
-          <AuthInput 
-            label="Last Name" 
-            placeholder="Enter your last name" 
+          <AuthInput
+            label="Last Name"
+            placeholder="Enter your last name"
             required
           />
 
-          <AuthInput 
-            label="Company Name" 
-            placeholder="Enter your company name" 
+          <AuthInput
+            label="Company Name"
+            placeholder="Enter your company name"
             required
           />
 
-          <AuthInput 
-            label="Phone" 
-            placeholder="+91   Enter your phone number" 
+          <AuthInput
+            label="Phone"
+            placeholder="+91   Enter your phone number"
             keyboardType="phone-pad"
             required
           />
 
-          <AuthInput 
-            label="GST" 
-            placeholder="Enter GST number (Optional)" 
+          <AuthInput
+            label="GST"
+            placeholder="Enter GST number (Optional)"
           />
 
           <Button

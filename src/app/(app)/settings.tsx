@@ -1,7 +1,7 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ArrowLeft, User, Building2, Receipt, Users, LogOut, ChevronRight } from "lucide-react-native";
 import { useRouter } from "expo-router";
+import { ArrowLeft, Building2, ChevronRight, LogOut, Receipt, User, Users } from "lucide-react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import "../../../global.css";
 
 export default function SettingsScreen() {

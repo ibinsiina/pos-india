@@ -85,6 +85,12 @@ export const PARTIES: Party[] = [
     { id: "p13", name: "National Metals", gstin: "19AACCN5566B1Z8", phone: "+91 7676767676", balance: 89000, type: "vendor" },
     { id: "p14", name: "Apex Office Solutions", gstin: "29AACCA6677C1Z6", phone: "+91 9099887766", balance: 14000, type: "vendor" },
     { id: "p15", name: "Green Energy Systems", gstin: "24AACCG2233D1Z2", phone: "+91 8080808080", balance: 56000, type: "vendor" },
+    { id: "p16", name: "Nitesh Traders", gstin: "24AACCG2233D1Z2", phone: "+91 8080808080", balance: 56000, type: "both" },
+    { id: "p17", name: "Vikas Automobiles", gstin: "03AABCV1234E1Z1", phone: "+91 9123456789", balance: 85000, type: "customer" },
+    { id: "p18", name: "Kunal Stationers", gstin: "06AACCK5678F1Z2", phone: "+91 8123987654", balance: 12000, type: "customer" },
+    { id: "p19", name: "Modern Plastics", gstin: "27AABCM9012G1Z3", phone: "+91 7098765432", balance: 135000, type: "vendor" },
+    { id: "p20", name: "Priya Fashion Hub", gstin: "09AABCP3456H1Z4", phone: "+91 9988112233", balance: 45000, type: "customer" },
+    { id: "p21", name: "Global Freight Forwarders", gstin: "24AACCG7890I1Z5", phone: "+91 8877990011", balance: 210000, type: "vendor" }
 ];
 
 export const ITEMS: Item[] = [
@@ -105,22 +111,95 @@ export const ITEMS: Item[] = [
     { id: "i13", name: "GST Filing Service", type: "service", price: 3000, hsn_sac: "9982", gst_rate: 18 },
     { id: "i14", name: "Annual Maintenance Contract", type: "service", price: 25000, hsn_sac: "9987", gst_rate: 18 },
     { id: "i15", name: "Business Advisory", type: "service", price: 12000, hsn_sac: "9983", gst_rate: 18 },
+
+    { id: "i16", name: "Safety Shoes", type: "product", price: 1500, hsn_sac: "6403", stock: 120, gst_rate: 18 },
+    { id: "i17", name: "Drill Machine Bosch", type: "product", price: 4200, hsn_sac: "8467", stock: 25, gst_rate: 18 },
+    { id: "i18", name: "Website Development", type: "service", price: 35000, hsn_sac: "9983", gst_rate: 18 },
+    { id: "i19", name: "Networking Cables Box", type: "product", price: 2100, hsn_sac: "8544", stock: 60, gst_rate: 18 },
+    { id: "i20", name: "Tax Audit Services", type: "service", price: 18000, hsn_sac: "9982", gst_rate: 18 }
 ];
 
 export const INVOICES: Invoice[] = [
-    { id: "inv1", number: "INV-2026-001", date: "15 Jun 2026", customerName: "Ramesh Traders", status: "Paid", total: 54000 },
-    { id: "inv2", number: "INV-2026-002", date: "18 Jun 2026", customerName: "Gupta Enterprises", status: "Pending", total: 12500 },
-    { id: "inv3", number: "INV-2026-003", date: "05 May 2026", customerName: "Sharma & Sons", status: "Overdue", total: 32000 },
-    { id: "inv4", number: "INV-2026-004", date: "20 Jun 2026", customerName: "Ramesh Traders", status: "Pending", total: 45000 },
-
-    { id: "inv5", number: "INV-2026-005", date: "22 Jun 2026", customerName: "Patel Hardware", status: "Paid", total: 68000 },
-    { id: "inv6", number: "INV-2026-006", date: "24 Jun 2026", customerName: "Surat Textiles", status: "Pending", total: 112000 },
-    { id: "inv7", number: "INV-2026-007", date: "27 Jun 2026", customerName: "Om Packaging", status: "Paid", total: 7500 },
-    { id: "inv8", number: "INV-2026-008", date: "29 Jun 2026", customerName: "Jain Electricals", status: "Pending", total: 34000 },
-    { id: "inv9", number: "INV-2026-009", date: "02 Jul 2026", customerName: "Mahavir Traders", status: "Overdue", total: 98000 },
-    { id: "inv10", number: "INV-2026-010", date: "04 Jul 2026", customerName: "Surat Textiles", status: "Paid", total: 145000 },
-    { id: "inv11", number: "INV-2026-011", date: "06 Jul 2026", customerName: "Patel Hardware", status: "Pending", total: 26000 },
-    { id: "inv12", number: "INV-2026-012", date: "08 Jul 2026", customerName: "Om Packaging", status: "Paid", total: 19000 },
+    { 
+        id: "inv1", number: "INV-2026-001", date: "15 Jun 2026", type: "Tax Invoice", status: "Paid", 
+        customerId: "p1", customerName: "Ramesh Traders", 
+        items: [
+            { id: "i1-inv1", productId: "i1", name: "Premium Cement Bag", hsn_sac: "2523", qty: 100, unit: "bags", rate: 350, gst_rate: 28, tax_amount: 9800, line_total: 44800 }
+        ],
+        subtotal: 35000, discountAmount: 0, cgstAmount: 4900, sgstAmount: 4900, igstAmount: 0, roundOff: 0, total: 44800 
+    },
+    { 
+        id: "inv2", number: "INV-2026-002", date: "18 Jun 2026", type: "Tax Invoice", status: "Pending", 
+        customerId: "p2", customerName: "Gupta Enterprises", 
+        items: [
+            { id: "i2-inv2", productId: "i2", name: "Steel TMT Bars 12mm", hsn_sac: "7214", qty: 2, unit: "tons", rate: 55000, gst_rate: 18, tax_amount: 19800, line_total: 129800 }
+        ],
+        subtotal: 110000, discountAmount: 0, cgstAmount: 9900, sgstAmount: 9900, igstAmount: 0, roundOff: 0, total: 129800 
+    },
+    { 
+        id: "inv3", number: "INV-2026-003", date: "05 May 2026", type: "Tax Invoice", status: "Overdue", 
+        customerId: "p3", customerName: "Sharma & Sons", 
+        items: [
+            { id: "i3-inv3", productId: "i8", name: "PVC Pipe 4 Inch", hsn_sac: "3917", qty: 20, unit: "pcs", rate: 1250, gst_rate: 18, tax_amount: 4500, line_total: 29500 }
+        ],
+        subtotal: 25000, discountAmount: 0, cgstAmount: 0, sgstAmount: 0, igstAmount: 4500, roundOff: 0, total: 29500 
+    },
+    { 
+        id: "inv4", number: "INV-2026-004", date: "20 Jun 2026", type: "Tax Invoice", status: "Draft", 
+        customerId: "p1", customerName: "Ramesh Traders", 
+        items: [
+            { id: "i4-inv4", productId: "i4", name: "Plywood 18mm", hsn_sac: "4412", qty: 50, unit: "sheets", rate: 1200, gst_rate: 18, tax_amount: 10800, line_total: 70800 }
+        ],
+        subtotal: 60000, discountAmount: 0, cgstAmount: 5400, sgstAmount: 5400, igstAmount: 0, roundOff: 0, total: 70800 
+    },
+    { 
+        id: "inv5", number: "INV-2026-005", date: "25 Jun 2026", type: "Tax Invoice", status: "Partially Paid", 
+        customerId: "p6", customerName: "Patel Hardware", 
+        items: [
+            { id: "i5-inv5", productId: "i9", name: "Copper Wire Bundle", hsn_sac: "7408", qty: 10, unit: "bundles", rate: 2850, gst_rate: 18, tax_amount: 5130, line_total: 33630 }
+        ],
+        subtotal: 28500, discountAmount: 0, cgstAmount: 2565, sgstAmount: 2565, igstAmount: 0, roundOff: 0, total: 33630 
+    },
+    { 
+        id: "inv6", number: "INV-2026-006", date: "02 Jul 2026", type: "Tax Invoice", status: "Cancelled", 
+        customerId: "p7", customerName: "Surat Textiles", 
+        items: [
+            { id: "i6-inv6", productId: "i10", name: "LED Panel Light", hsn_sac: "9405", qty: 50, unit: "pcs", rate: 950, gst_rate: 12, tax_amount: 5700, line_total: 53200 }
+        ],
+        subtotal: 47500, discountAmount: 0, cgstAmount: 2850, sgstAmount: 2850, igstAmount: 0, roundOff: 0, total: 53200 
+    },
+    { 
+        id: "inv7", number: "INV-2026-007", date: "10 Jul 2026", type: "Tax Invoice", status: "Pending", 
+        customerId: "p8", customerName: "Om Packaging", 
+        items: [
+            { id: "i7-inv7", productId: "i3", name: "Office Chair Ergonomic", hsn_sac: "9401", qty: 4, unit: "pcs", rate: 4500, gst_rate: 18, tax_amount: 3240, line_total: 21240 }
+        ],
+        subtotal: 18000, discountAmount: 0, cgstAmount: 1620, sgstAmount: 1620, igstAmount: 0, roundOff: 0, total: 21240 
+    },
+    { 
+        id: "inv8", number: "INV-2026-008", date: "12 Jul 2026", type: "Tax Invoice", status: "Paid", 
+        customerId: "p9", customerName: "Jain Electricals", 
+        items: [
+            { id: "i8-inv8", productId: "i11", name: "Desktop Computer", hsn_sac: "8471", qty: 1, unit: "pcs", rate: 42000, gst_rate: 18, tax_amount: 7560, line_total: 49560 }
+        ],
+        subtotal: 42000, discountAmount: 0, cgstAmount: 3780, sgstAmount: 3780, igstAmount: 0, roundOff: 0, total: 49560 
+    },
+    { 
+        id: "inv9", number: "INV-2026-009", date: "15 Jul 2026", type: "Tax Invoice", status: "Overdue", 
+        customerId: "p10", customerName: "Mahavir Traders", 
+        items: [
+            { id: "i9-inv9", productId: "i6", name: "TMT Bars 16mm", hsn_sac: "7214", qty: 10, unit: "tons", rate: 62000, gst_rate: 18, tax_amount: 111600, line_total: 731600 }
+        ],
+        subtotal: 620000, discountAmount: 0, cgstAmount: 55800, sgstAmount: 55800, igstAmount: 0, roundOff: 0, total: 731600 
+    },
+    { 
+        id: "inv10", number: "INV-2026-010", date: "20 Jul 2026", type: "Proforma Invoice", status: "Sent", 
+        customerId: "p1", customerName: "Ramesh Traders", 
+        items: [
+            { id: "i10-inv10", productId: "i13", name: "GST Filing Service", hsn_sac: "9982", qty: 1, unit: "service", rate: 3000, gst_rate: 18, tax_amount: 540, line_total: 3540 }
+        ],
+        subtotal: 3000, discountAmount: 0, cgstAmount: 270, sgstAmount: 270, igstAmount: 0, roundOff: 0, total: 3540 
+    }
 ];
 
 export const PAYMENTS: Payment[] = [
@@ -137,4 +216,10 @@ export const PAYMENTS: Payment[] = [
     { id: "pay10", date: "05 Jul 2026", amount: 14000, mode: "Cash", type: "out", partyName: "Apex Office Solutions" },
     { id: "pay11", date: "07 Jul 2026", amount: 125000, mode: "RTGS", type: "out", partyName: "Ultra Cement Depot" },
     { id: "pay12", date: "09 Jul 2026", amount: 45000, mode: "UPI", type: "in", partyName: "Surat Textiles" },
+
+    { id: "pay13", date: "11 Jul 2026", amount: 85000, mode: "NEFT", type: "in", partyName: "Vikas Automobiles" },
+    { id: "pay14", date: "12 Jul 2026", amount: 135000, mode: "Bank Transfer", type: "out", partyName: "Modern Plastics" },
+    { id: "pay15", date: "14 Jul 2026", amount: 45000, mode: "UPI", type: "in", partyName: "Priya Fashion Hub" },
+    { id: "pay16", date: "16 Jul 2026", amount: 210000, mode: "RTGS", type: "out", partyName: "Global Freight Forwarders" },
+    { id: "pay17", date: "18 Jul 2026", amount: 12000, mode: "Cash", type: "in", partyName: "Kunal Stationers" }
 ];

@@ -1,7 +1,7 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Plus, ArrowLeft, ArrowDownLeft, ArrowUpRight } from "lucide-react-native";
 import { useRouter } from "expo-router";
+import { ArrowDownLeft, ArrowLeft, ArrowUpRight, Plus } from "lucide-react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Card from "../../../components/Card";
 import { PAYMENTS } from "../../../constants/data";
 import "../../../global.css";
