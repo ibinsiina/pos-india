@@ -26,6 +26,7 @@ import {
     Users,
     Wallet,
     ArrowDown,
+    ShoppingCart,
 } from "lucide-react-native";
 
 type Props = {
@@ -38,6 +39,11 @@ const menuItems = [
         label: "Dashboard",
         icon: LayoutDashboard,
         href: "/(app)/dashboard",
+    },
+    {
+        label: "POS Cashier",
+        icon: ShoppingCart,
+        href: "/(app)/pos",
     },
     {
         label: "Sales | Invoices",
