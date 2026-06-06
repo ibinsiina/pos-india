@@ -199,6 +199,38 @@ export const INVOICES: Invoice[] = [
             { id: "i10-inv10", productId: "i13", name: "GST Filing Service", hsn_sac: "9982", qty: 1, unit: "service", rate: 3000, gst_rate: 18, tax_amount: 540, line_total: 3540 }
         ],
         subtotal: 3000, discountAmount: 0, cgstAmount: 270, sgstAmount: 270, igstAmount: 0, roundOff: 0, total: 3540 
+    },
+    { 
+        id: "inv11", number: "INV-2026-011", date: "12 Jan 2026", type: "Tax Invoice", status: "Paid", 
+        customerId: "p1", customerName: "Ramesh Traders", 
+        items: [
+            { id: "i1-inv11", productId: "i1", name: "Premium Cement Bag", hsn_sac: "2523", qty: 200, unit: "bags", rate: 350, gst_rate: 28, tax_amount: 19600, line_total: 89600 }
+        ],
+        subtotal: 70000, discountAmount: 0, cgstAmount: 9800, sgstAmount: 9800, igstAmount: 0, roundOff: 0, total: 89600 
+    },
+    { 
+        id: "inv12", number: "INV-2026-012", date: "24 Feb 2026", type: "Tax Invoice", status: "Paid", 
+        customerId: "p2", customerName: "Gupta Enterprises", 
+        items: [
+            { id: "i2-inv12", productId: "i2", name: "Steel TMT Bars 12mm", hsn_sac: "7214", qty: 1, unit: "tons", rate: 55000, gst_rate: 18, tax_amount: 9900, line_total: 64900 }
+        ],
+        subtotal: 55000, discountAmount: 0, cgstAmount: 4950, sgstAmount: 4950, igstAmount: 0, roundOff: 0, total: 64900 
+    },
+    { 
+        id: "inv13", number: "INV-2026-013", date: "15 Mar 2026", type: "Tax Invoice", status: "Paid", 
+        customerId: "p3", customerName: "Sharma & Sons", 
+        items: [
+            { id: "i3-inv13", productId: "i8", name: "PVC Pipe 4 Inch", hsn_sac: "3917", qty: 50, unit: "pcs", rate: 1250, gst_rate: 18, tax_amount: 11250, line_total: 73750 }
+        ],
+        subtotal: 62500, discountAmount: 0, cgstAmount: 0, sgstAmount: 0, igstAmount: 11250, roundOff: 0, total: 73750 
+    },
+    { 
+        id: "inv14", number: "INV-2026-014", date: "02 Apr 2026", type: "Tax Invoice", status: "Paid", 
+        customerId: "p6", customerName: "Patel Hardware", 
+        items: [
+            { id: "i4-inv14", productId: "i9", name: "Copper Wire Bundle", hsn_sac: "7408", qty: 20, unit: "bundles", rate: 2850, gst_rate: 18, tax_amount: 10260, line_total: 67260 }
+        ],
+        subtotal: 57000, discountAmount: 0, cgstAmount: 5130, sgstAmount: 5130, igstAmount: 0, roundOff: 0, total: 67260 
     }
 ];
 
@@ -222,4 +254,88 @@ export const PAYMENTS: Payment[] = [
     { id: "pay15", date: "14 Jul 2026", amount: 45000, mode: "UPI", type: "in", partyName: "Priya Fashion Hub" },
     { id: "pay16", date: "16 Jul 2026", amount: 210000, mode: "RTGS", type: "out", partyName: "Global Freight Forwarders" },
     { id: "pay17", date: "18 Jul 2026", amount: 12000, mode: "Cash", type: "in", partyName: "Kunal Stationers" }
+];
+
+export const PURCHASES: Invoice[] = [
+    {
+        id: "po1", number: "PO-2026-001", date: "10 Jul 2026", type: "Purchase Order", status: "Sent",
+        customerId: "p4", customerName: "Tata Steel Wholesale", // Fallbacks for old references
+        vendorId: "p4", vendorName: "Tata Steel Wholesale",
+        items: [
+            { id: "i2-po1", productId: "i2", name: "Ambuja Cement 50kg", hsn_sac: "2523", qty: 200, unit: "bags", rate: 380, gst_rate: 28, tax_amount: 21280, line_total: 97280 }
+        ],
+        subtotal: 76000, discountAmount: 0, cgstAmount: 10640, sgstAmount: 10640, igstAmount: 0, roundOff: 0, total: 97280
+    },
+    {
+        id: "bill1", number: "BILL-2026-001", date: "15 Jul 2026", type: "Vendor Bill", status: "Pending",
+        customerId: "p11", customerName: "Ultra Cement Depot",
+        vendorId: "p11", vendorName: "Ultra Cement Depot",
+        items: [
+            { id: "i7-bill1", productId: "i7", name: "ACC Cement 50kg", hsn_sac: "2523", qty: 100, unit: "bags", rate: 395, gst_rate: 28, tax_amount: 11060, line_total: 50560 }
+        ],
+        subtotal: 39500, discountAmount: 0, cgstAmount: 5530, sgstAmount: 5530, igstAmount: 0, roundOff: 0, total: 50560
+    },
+    {
+        id: "bill2", number: "BILL-2026-002", date: "20 Jul 2026", type: "Vendor Bill", status: "Paid",
+        customerId: "p12", customerName: "Prime Logistics",
+        vendorId: "p12", vendorName: "Prime Logistics",
+        items: [
+            { id: "i12-bill2", productId: "i12", name: "Transport Charges", hsn_sac: "9965", qty: 1, unit: "service", rate: 15000, gst_rate: 5, tax_amount: 750, line_total: 15750 }
+        ],
+        subtotal: 15000, discountAmount: 0, cgstAmount: 375, sgstAmount: 375, igstAmount: 0, roundOff: 0, total: 15750
+    },
+    {
+        id: "po4", number: "PO-2026-004", date: "01 Aug 2026", type: "Purchase Order", status: "Draft",
+        customerId: "p15", customerName: "Green Energy Systems",
+        vendorId: "p15", vendorName: "Green Energy Systems",
+        items: [
+            { id: "i10-po4", productId: "i10", name: "LED Panel Light", hsn_sac: "9405", qty: 100, unit: "pcs", rate: 950, gst_rate: 12, tax_amount: 11400, line_total: 106400 }
+        ],
+        subtotal: 95000, discountAmount: 0, cgstAmount: 5700, sgstAmount: 5700, igstAmount: 0, roundOff: 0, total: 106400
+    },
+    {
+        id: "po5", number: "PO-2026-005", date: "05 Jan 2026", type: "Vendor Bill", status: "Paid",
+        customerId: "p4", customerName: "Tata Steel Wholesale",
+        vendorId: "p4", vendorName: "Tata Steel Wholesale",
+        items: [
+            { id: "i2-po5", productId: "i2", name: "Ambuja Cement 50kg", hsn_sac: "2523", qty: 100, unit: "bags", rate: 380, gst_rate: 28, tax_amount: 10640, line_total: 48640 }
+        ],
+        subtotal: 38000, discountAmount: 0, cgstAmount: 5320, sgstAmount: 5320, igstAmount: 0, roundOff: 0, total: 48640
+    },
+    {
+        id: "po6", number: "PO-2026-006", date: "18 Feb 2026", type: "Vendor Bill", status: "Paid",
+        customerId: "p11", customerName: "Ultra Cement Depot",
+        vendorId: "p11", vendorName: "Ultra Cement Depot",
+        items: [
+            { id: "i7-po6", productId: "i7", name: "ACC Cement 50kg", hsn_sac: "2523", qty: 150, unit: "bags", rate: 395, gst_rate: 28, tax_amount: 16590, line_total: 75840 }
+        ],
+        subtotal: 59250, discountAmount: 0, cgstAmount: 8295, sgstAmount: 8295, igstAmount: 0, roundOff: 0, total: 75840
+    },
+    {
+        id: "po7", number: "PO-2026-007", date: "22 Mar 2026", type: "Vendor Bill", status: "Paid",
+        customerId: "p12", customerName: "Prime Logistics",
+        vendorId: "p12", vendorName: "Prime Logistics",
+        items: [
+            { id: "i8-po7", productId: "i12", name: "Transport Service", hsn_sac: "9965", qty: 1, unit: "trip", rate: 12500, gst_rate: 5, tax_amount: 625, line_total: 13125 }
+        ],
+        subtotal: 12500, discountAmount: 0, cgstAmount: 312.5, sgstAmount: 312.5, igstAmount: 0, roundOff: 0, total: 13125
+    },
+    {
+        id: "po8", number: "PO-2026-008", date: "10 Apr 2026", type: "Vendor Bill", status: "Paid",
+        customerId: "p13", customerName: "National Metals",
+        vendorId: "p13", vendorName: "National Metals",
+        items: [
+            { id: "i9-po8", productId: "i15", name: "Aluminum Sheets", hsn_sac: "7606", qty: 50, unit: "sheets", rate: 850, gst_rate: 18, tax_amount: 7650, line_total: 50150 }
+        ],
+        subtotal: 42500, discountAmount: 0, cgstAmount: 3825, sgstAmount: 3825, igstAmount: 0, roundOff: 0, total: 50150
+    }
+];
+
+export const EXPENSES: Expense[] = [
+    { id: "exp1", date: "01 Jul 2026", category: "Office Supplies", amount: 2500, paymentMode: "UPI", vendorName: "Stationery Mart" },
+    { id: "exp2", date: "05 Jul 2026", category: "Internet Bill", amount: 1200, paymentMode: "Credit Card", vendorName: "Jio Fiber" },
+    { id: "exp3", date: "10 Jul 2026", category: "Travel", amount: 4500, paymentMode: "Cash" },
+    { id: "exp4", date: "15 Jul 2026", category: "Electricity", amount: 8000, paymentMode: "Bank Transfer", vendorName: "MSEB" },
+    { id: "exp5", date: "20 Jul 2026", category: "Refreshments", amount: 800, paymentMode: "UPI" },
+    { id: "exp6", date: "25 Jul 2026", category: "Software Subscriptions", amount: 3500, paymentMode: "Credit Card", vendorName: "Adobe" },
 ];

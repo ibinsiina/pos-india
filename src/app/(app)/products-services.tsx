@@ -1,82 +1,12 @@
-import { BlurView } from "expo-blur";
+import AnimatedModal from "@/components/AnimatedModal";
 import { useRouter } from "expo-router";
 import { ArrowLeft, Briefcase, Package, Plus, Search, X, Save, Edit, Trash2 } from "lucide-react-native";
 import { useState, useRef, useEffect } from "react";
 import { Pressable, ScrollView, Text, TextInput, View, Animated, Dimensions, Modal, KeyboardAvoidingView, Platform, StyleSheet, Alert, RefreshControl } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Card from "../../../components/Card";
+import Card from "@/components/Card";
 import { useAppContext } from "../../context/AppContext";
 import "../../../global.css";
-
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
-
-const AnimatedModal = ({ visible, onClose, children, avoidKeyboard }: any) => {
-    const [show, setShow] = useState(visible);
-    const slideAnim = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
-    const fadeAnim = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        if (visible) {
-            setShow(true);
-            Animated.parallel([
-                Animated.timing(fadeAnim, {
-                    toValue: 1,
-                    duration: 300,
-                    useNativeDriver: true,
-                }),
-                Animated.spring(slideAnim, {
-                    toValue: 0,
-                    useNativeDriver: true,
-                    damping: 20,
-                    stiffness: 90
-                })
-            ]).start();
-        } else {
-            Animated.parallel([
-                Animated.timing(fadeAnim, {
-                    toValue: 0,
-                    duration: 250,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(slideAnim, {
-                    toValue: SCREEN_HEIGHT,
-                    duration: 250,
-                    useNativeDriver: true,
-                })
-            ]).start(() => setShow(false));
-        }
-    }, [visible]);
-
-    if (!show) return null;
-
-    const content = (
-        <View className="flex-1 justify-end">
-            <Pressable className="absolute inset-0" onPress={onClose}>
-                <Animated.View style={[StyleSheet.absoluteFill, { opacity: fadeAnim }]}>
-                    <BlurView intensity={20} tint="dark" style={StyleSheet.absoluteFill} />
-                    <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(0,0,0,0.4)' }]} />
-                </Animated.View>
-            </Pressable>
-            <Animated.View style={{ transform: [{ translateY: slideAnim }] }}>
-                {children}
-            </Animated.View>
-        </View>
-    );
-
-    return (
-        <Modal visible={show} transparent={true} animationType="none" onRequestClose={onClose} statusBarTranslucent>
-            {avoidKeyboard && Platform.OS === 'ios' ? (
-                <KeyboardAvoidingView behavior="padding" className="flex-1 m-0 p-0">
-                    {content}
-                </KeyboardAvoidingView>
-            ) : (
-                <View className="flex-1 m-0 p-0">
-                    {content}
-                </View>
-            )}
-        </Modal>
-    );
-};
 
 export default function ProductsServicesScreen() {
     const router = useRouter();
@@ -101,6 +31,7 @@ export default function ProductsServicesScreen() {
     const topItem = filteredItems.length > 0 ? filteredItems.reduce((prev, current) => (prev.price > current.price) ? prev : current) : null;
 
     // Modal States
+    const [selectedItem, setSelectedItem] = useState<Item | null>(null);
     const [isFormModalVisible, setIsFormModalVisible] = useState(false);
     const [editingItem, setEditingItem] = useState<Item | null>(null);
     const [formData, setFormData] = useState<Partial<Item>>({
@@ -266,7 +197,7 @@ export default function ProductsServicesScreen() {
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#208AEF" />}
             >
                 {filteredItems.map((item) => (
-                    <Card key={item.id} className="flex-row items-center mb-4 p-4" isPressable onPress={() => openFormModal(item)}>
+                    <Card key={item.id} className="flex-row items-center mb-4 p-4" isPressable onPress={() => setSelectedItem(item)}>
                         <View className="size-12 rounded-lg bg-[#e3e8fc] items-center justify-center mr-4">
                             {tab === "product" ? (
                                 <Package color="#081126" size={24} />
@@ -299,6 +230,71 @@ export default function ProductsServicesScreen() {
                     </View>
                 )}
             </ScrollView>
+
+            {/* Details Modal */}
+            <AnimatedModal visible={!!selectedItem} onClose={() => setSelectedItem(null)}>
+                {selectedItem && (
+                    <View className="bg-white rounded-t-3xl p-6 min-h-[350px]">
+                        <View className="flex-row justify-between items-start mb-6">
+                            <View className="flex-1 mr-4">
+                                <Text className="font-sans-bold text-2xl text-primary mb-1">{selectedItem.name}</Text>
+                                <Text className="font-sans-medium text-base text-muted-foreground">
+                                    {selectedItem.type === 'product' ? `HSN: ${selectedItem.hsn_sac || 'N/A'}` : `SAC: ${selectedItem.hsn_sac || 'N/A'}`} • GST @ {selectedItem.gst_rate}%
+                                </Text>
+                            </View>
+                            <Pressable onPress={() => setSelectedItem(null)} className="p-2 bg-muted rounded-full">
+                                <X color="#64748b" size={20} />
+                            </Pressable>
+                        </View>
+
+                        <View className="p-4 rounded-2xl bg-slate-50 border border-border flex-row justify-between items-center mb-6">
+                            <View>
+                                <Text className="font-sans-medium text-sm text-muted-foreground mb-1">Selling Price</Text>
+                                <Text className="font-sans-bold text-2xl text-primary">
+                                    ₹ {selectedItem.price.toLocaleString('en-IN')}
+                                </Text>
+                            </View>
+                            {selectedItem.type === 'product' && (
+                                <View className={`px-3 py-1.5 rounded-md border ${selectedItem.stock && selectedItem.stock > 10 ? 'bg-green-100 border-green-200' : 'bg-amber-100 border-amber-200'}`}>
+                                    <Text className={`font-sans-bold text-xs uppercase ${selectedItem.stock && selectedItem.stock > 10 ? 'text-green-700' : 'text-amber-700'}`}>
+                                        Stock: {selectedItem.stock || 0}
+                                    </Text>
+                                </View>
+                            )}
+                        </View>
+
+                        {selectedItem.description && (
+                            <View className="mb-6">
+                                <Text className="font-sans-medium text-sm text-muted-foreground mb-1">Description</Text>
+                                <Text className="font-sans-regular text-primary">{selectedItem.description}</Text>
+                            </View>
+                        )}
+
+                        <View className="flex-row space-x-4">
+                            <Pressable
+                                onPress={() => {
+                                    setSelectedItem(null);
+                                    openFormModal(selectedItem);
+                                }}
+                                className="flex-1 bg-blue-100 py-4 rounded-xl flex-row justify-center items-center mr-2"
+                            >
+                                <Edit color="#208AEF" size={18} className="mr-2" />
+                                <Text className="font-sans-bold text-primary text-base">Edit</Text>
+                            </Pressable>
+                            <Pressable
+                                onPress={() => {
+                                    handleDelete(selectedItem.id);
+                                    setSelectedItem(null);
+                                }}
+                                className="flex-1 border border-red-200 py-4 rounded-xl flex-row justify-center items-center ml-2"
+                            >
+                                <Trash2 color="#ef4444" size={18} className="mr-2" />
+                                <Text className="font-sans-bold text-red-500 text-base">Delete</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                )}
+            </AnimatedModal>
 
             {/* Form Modal */}
             <AnimatedModal visible={isFormModalVisible} onClose={handleCloseFormModal} avoidKeyboard>

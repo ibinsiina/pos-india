@@ -19,7 +19,7 @@ export default function SplashScreen() {
   return (
     <ImageBackground 
       source={require("../../assets/images/splashpattern.png")} 
-      className="flex-1 items-center justify-center bg-[#1c1c1e]"
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#1c1c1e' }}
       resizeMode="cover"
     >
       <StatusBar style="light" />

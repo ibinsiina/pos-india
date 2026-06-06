@@ -143,11 +143,13 @@ declare global {
         date: string;
         dueDate?: string;
         financialYear?: string;
-        type: "Tax Invoice" | "Proforma Invoice" | "Credit Note" | "Debit Note" | "Export Invoice" | "Delivery Challan";
+        type: "Tax Invoice" | "Proforma Invoice" | "Credit Note" | "Debit Note" | "Export Invoice" | "Delivery Challan" | "Purchase Order" | "Vendor Bill";
         status: "Draft" | "Sent" | "Partially Paid" | "Paid" | "Overdue" | "Cancelled" | "Pending";
         
         customerId: string;
         customerName: string;
+        vendorId?: string;
+        vendorName?: string;
         
         items: InvoiceItem[];
         
@@ -192,5 +194,16 @@ declare global {
         mode: "UPI" | "Bank Transfer" | "Cash" | "NEFT" | "RTGS" | "Cheque";
         type: "in" | "out";
         partyName: string;
+    }
+
+    interface Expense {
+        id: string;
+        date: string;
+        category: string;
+        amount: number;
+        paymentMode: "UPI" | "Bank Transfer" | "Cash" | "Credit Card" | "Debit Card";
+        vendorName?: string;
+        notes?: string;
+        receiptImage?: string;
     }
 }

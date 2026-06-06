@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, PressableProps } from 'react-native';
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
-import "../global.css";
+import "../../global.css";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 

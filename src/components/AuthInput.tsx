@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, TextInputProps } from 'react-native';
 import { Eye, EyeOff } from 'lucide-react-native';
-import "../global.css";
+import { useState } from 'react';
+import { Pressable, Text, TextInput, TextInputProps, View } from 'react-native';
+import "../../global.css";
 
 interface AuthInputProps extends TextInputProps {
   label: string;
@@ -18,7 +18,7 @@ export default function AuthInput({ label, required, isPassword, ...props }: Aut
         {label}
         {required && <Text className="text-red-500">*</Text>}
       </Text>
-      
+
       <View className="flex-row items-center rounded-xl border border-border bg-white px-4 h-[52px]">
         <TextInput
           className="flex-1 h-full text-base font-sans-regular text-primary"
@@ -26,9 +26,9 @@ export default function AuthInput({ label, required, isPassword, ...props }: Aut
           secureTextEntry={isPassword && !showPassword}
           {...props}
         />
-        
+
         {isPassword && (
-          <Pressable 
+          <Pressable
             onPress={() => setShowPassword(!showPassword)}
             className="p-2"
           >

@@ -3,8 +3,8 @@ import { StatusBar } from "expo-status-bar";
 import { ArrowRight } from "lucide-react-native";
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AuthInput from "../../../components/AuthInput";
-import Button from "../../../components/Button";
+import AuthInput from "@/components/AuthInput";
+import Button from "@/components/Button";
 import "../../../global.css";
 
 export default function SignUpScreen() {

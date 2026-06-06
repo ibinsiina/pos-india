@@ -1,82 +1,14 @@
-import { BlurView } from "expo-blur";
+import AnimatedModal from "@/components/AnimatedModal";
 import { useRouter } from "expo-router";
 import { ArrowLeft, Edit, Phone, Plus, Save, Search, Trash2, X } from "lucide-react-native";
 import { useEffect, useRef, useState } from "react";
 import { Alert, Animated, Dimensions, KeyboardAvoidingView, Linking, Modal, Platform, Pressable, RefreshControl, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Card from "../../../components/Card";
+import Card from "@/components/Card";
 import { useAppContext } from "../../context/AppContext";
 import "../../../global.css";
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-const AnimatedModal = ({ visible, onClose, children, avoidKeyboard }: any) => {
-    const [show, setShow] = useState(visible);
-    const slideAnim = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
-    const fadeAnim = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        if (visible) {
-            setShow(true);
-            Animated.parallel([
-                Animated.timing(fadeAnim, {
-                    toValue: 1,
-                    duration: 300,
-                    useNativeDriver: true,
-                }),
-                Animated.spring(slideAnim, {
-                    toValue: 0,
-                    useNativeDriver: true,
-                    damping: 20,
-                    stiffness: 90
-                })
-            ]).start();
-        } else {
-            Animated.parallel([
-                Animated.timing(fadeAnim, {
-                    toValue: 0,
-                    duration: 250,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(slideAnim, {
-                    toValue: SCREEN_HEIGHT,
-                    duration: 250,
-                    useNativeDriver: true,
-                })
-            ]).start(() => setShow(false));
-        }
-    }, [visible]);
-
-    if (!show) return null;
-
-    const content = (
-        <View className="flex-1 justify-end">
-            <Pressable className="absolute inset-0" onPress={onClose}>
-                <Animated.View style={[StyleSheet.absoluteFill, { opacity: fadeAnim }]}>
-                    <BlurView intensity={20} tint="dark" style={StyleSheet.absoluteFill} />
-                    <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(0,0,0,0.4)' }]} />
-                </Animated.View>
-            </Pressable>
-            <Animated.View style={{ transform: [{ translateY: slideAnim }] }}>
-                {children}
-            </Animated.View>
-        </View>
-    );
-
-    return (
-        <Modal visible={show} transparent={true} animationType="none" onRequestClose={onClose} statusBarTranslucent>
-            {avoidKeyboard && Platform.OS === 'ios' ? (
-                <KeyboardAvoidingView behavior="padding" className="flex-1">
-                    {content}
-                </KeyboardAvoidingView>
-            ) : (
-                <View className="flex-1">
-                    {content}
-                </View>
-            )}
-        </Modal>
-    );
-};
 
 export default function CustomersVendorsScreen() {
     const router = useRouter();

@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Pressable, Text, View, Image } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowRight } from "lucide-react-native";
+import { Image, Pressable, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import "../../global.css";
 
 export default function OnboardingScreen() {
@@ -22,8 +22,8 @@ export default function OnboardingScreen() {
         </View>
 
         <View className="flex-[2] justify-center items-center">
-          <Image 
-            source={require("../../assets/images/icon-black.png")} 
+          <Image
+            source={require("../../assets/images/icon-black.png")}
             style={{ width: 180, height: 180 }}
             resizeMode="contain"
           />

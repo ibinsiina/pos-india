@@ -40,6 +40,16 @@ const menuItems = [
         href: "/(app)/dashboard",
     },
     {
+        label: "Sales | Invoices",
+        icon: ReceiptText,
+        href: "/(app)/invoice",
+    },
+    {
+        label: "Expenses | Purchases",
+        icon: Wallet,
+        href: "/(app)/expenses-purchases",
+    },
+    {
         label: "Customers | Vendors",
         icon: Users,
         href: "/(app)/customers-vendors",
@@ -50,12 +60,7 @@ const menuItems = [
         href: "/(app)/products-services",
     },
     {
-        label: "Invoice",
-        icon: ReceiptText,
-        href: "/(app)/invoice",
-    },
-    {
-        label: "Payment",
+        label: "Payments",
         icon: Wallet,
         href: "/(app)/payment",
     },

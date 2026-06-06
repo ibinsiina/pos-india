@@ -2,8 +2,8 @@ import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AuthInput from "../../../components/AuthInput";
-import Button from "../../../components/Button";
+import AuthInput from "@/components/AuthInput";
+import Button from "@/components/Button";
 import { icons } from "../../../constants/icons";
 import "../../../global.css";
 

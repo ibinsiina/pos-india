@@ -3,20 +3,22 @@ import { useAppContext } from "../../context/AppContext";
 import DocumentBuilder from "@/components/DocumentBuilder";
 
 
-export default function CreateInvoiceScreen() {
+export default function CreatePurchaseScreen() {
     const router = useRouter();
-    const { addInvoice } = useAppContext();
+    const { addPurchase } = useAppContext();
 
     const handleSave = (documentData: any) => {
-        const newInvoice = {
-            id: `inv-${Date.now()}`,
+        const newPurchase = {
+            id: `po-${Date.now()}`,
             number: documentData.header.number,
             date: documentData.header.date,
             dueDate: documentData.header.dueDate,
             type: documentData.header.type,
             status: "Draft",
-            customerId: documentData.selectedParty.id,
+            customerId: documentData.selectedParty.id, // Fallback
             customerName: documentData.selectedParty.name,
+            vendorId: documentData.selectedParty.id,
+            vendorName: documentData.selectedParty.name,
             items: documentData.items,
             subtotal: documentData.totals.subtotal,
             discountAmount: documentData.totals.discount,
@@ -27,25 +29,24 @@ export default function CreateInvoiceScreen() {
             total: documentData.totals.total,
             paymentTerms: documentData.payment.terms,
             paymentMode: documentData.payment.mode,
-            transport: documentData.transport,
             notes: documentData.notes.external,
             internalNotes: documentData.notes.internal,
         };
 
-        addInvoice(newInvoice as any);
-        console.log("Saved Invoice!");
+        addPurchase(newPurchase as any);
+        console.log("Saved Purchase!");
         router.back();
     };
 
     return (
         <DocumentBuilder
-            title="New Invoice"
-            defaultType="Tax Invoice"
-            defaultPrefix="INV-"
-            partyLabel="Customer"
-            partyFilter="customer"
-            hasTransport={true}
-            defaultNotes="Goods once sold will not be taken back."
+            title="New Purchase"
+            defaultType="Purchase Order"
+            defaultPrefix="PO-"
+            partyLabel="Vendor"
+            partyFilter="vendor"
+            hasTransport={false}
+            defaultNotes="Please deliver goods within 7 days."
             onSave={handleSave}
         />
     );
