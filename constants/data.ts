@@ -94,9 +94,9 @@ export const PARTIES: Party[] = [
 ];
 
 export const ITEMS: Item[] = [
-    { id: "i1", name: "TMT Bars 12mm", type: "product", price: 450, hsn_sac: "7214", stock: 500, gst_rate: 18 },
-    { id: "i2", name: "Ambuja Cement 50kg", type: "product", price: 380, hsn_sac: "2523", stock: 1200, gst_rate: 28 },
-    { id: "i3", name: "Office Chair Ergonomic", type: "product", price: 4500, hsn_sac: "9401", stock: 45, gst_rate: 18 },
+    { id: "i1", name: "TMT Bars 12mm", type: "product", price: 450, hsn_sac: "7214", stock: 500, gst_rate: 18, barcode: "8901234567890" },
+    { id: "i2", name: "Ambuja Cement 50kg", type: "product", price: 380, hsn_sac: "2523", stock: 1200, gst_rate: 28, barcode: "8901030755365" },
+    { id: "i3", name: "Office Chair Ergonomic", type: "product", price: 4500, hsn_sac: "9401", stock: 45, gst_rate: 18, barcode: "123456789012" },
     { id: "i4", name: "Accounting Software License", type: "service", price: 15000, hsn_sac: "9984", gst_rate: 18 },
     { id: "i5", name: "Consulting Fees", type: "service", price: 5000, hsn_sac: "9983", gst_rate: 18 },
 

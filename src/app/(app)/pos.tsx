@@ -34,8 +34,10 @@ import {
     ChevronDown, 
     Sparkles, 
     X,
-    FileText
+    FileText,
+    Camera
 } from "lucide-react-native";
+import { BarCodeScanner } from 'expo-barcode-scanner';
 import Animated, { 
     FadeIn, 
     FadeOut, 
@@ -78,6 +80,8 @@ export default function PosCashierScreen() {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const [scannerVisible, setScannerVisible] = useState(false);
+    const [hasPermission, setHasPermission] = useState<boolean | null>(null);
     const [selectedCustomer, setSelectedCustomer] = useState<{ id: string; name: string; phone: string; gstin?: string }>({
         id: 'cash',
         name: 'Walk-in Customer',
@@ -201,6 +205,7 @@ export default function PosCashierScreen() {
         if (existing) {
             setCart(cart.map(c => c.product.id === product.id ? { ...c, qty: c.qty + 1 } : c));
         } else {
+            // eslint-disable-next-line react-hooks/purity
             setCart([...cart, { id: `cart-${Date.now()}-${product.id}`, product, qty: 1, rate: product.price }]);
         }
     };
@@ -413,6 +418,29 @@ export default function PosCashierScreen() {
         setSelectedCustomer({ id: 'cash', name: 'Walk-in Customer', phone: '' });
         setGstMode('local');
         setSuccessVisible(false);
+    };
+
+    // Barcode Scanner Permissions on Mount
+    useEffect(() => {
+        const getBarCodeScannerPermissions = async () => {
+            const { status } = await BarCodeScanner.requestPermissionsAsync();
+            setHasPermission(status === 'granted');
+        };
+        getBarCodeScannerPermissions();
+    }, []);
+
+    // Handle Scanned Barcode
+    const handleBarCodeScanned = ({ type, data }: { type: string; data: string }) => {
+        if (!scannerVisible) return;
+        const product = items.find(item => item.barcode === data);
+        if (product) {
+            handleAddToCart(product);
+            Alert.alert("Product Found", `${product.name} has been added to cart.`);
+            setScannerVisible(false);
+        } else {
+            Alert.alert("Product not found");
+            setScannerVisible(false);
+        }
     };
 
     // Components
@@ -697,20 +725,28 @@ export default function PosCashierScreen() {
                     <View className="flex-1 p-3">
                         {/* Search and Filters */}
                         <View className="mb-3 px-2">
-                            <View className="flex-row items-center bg-white px-4 h-12 rounded-xl border border-border shadow-sm mb-3">
-                                <Search color="#9ca3af" size={20} />
-                                <TextInput
-                                    className="flex-1 ml-3 h-full font-sans-regular text-base text-primary"
-                                    placeholder="Search by name, category, HSN..."
-                                    placeholderTextColor="#9ca3af"
-                                    value={searchQuery}
-                                    onChangeText={setSearchQuery}
-                                />
-                                {searchQuery.length > 0 && (
-                                    <Pressable onPress={() => setSearchQuery('')} className="p-1">
-                                        <X size={18} color="#9ca3af" />
-                                    </Pressable>
-                                )}
+                            <View className="flex-row items-center gap-2 mb-3">
+                                <View className="flex-1 flex-row items-center bg-white px-4 h-12 rounded-xl border border-border shadow-sm">
+                                    <Search color="#9ca3af" size={20} />
+                                    <TextInput
+                                        className="flex-1 ml-3 h-full font-sans-regular text-base text-primary"
+                                        placeholder="Search by name, category, HSN..."
+                                        placeholderTextColor="#9ca3af"
+                                        value={searchQuery}
+                                        onChangeText={setSearchQuery}
+                                    />
+                                    {searchQuery.length > 0 && (
+                                        <Pressable onPress={() => setSearchQuery('')} className="p-1">
+                                            <X size={18} color="#9ca3af" />
+                                        </Pressable>
+                                    )}
+                                </View>
+                                <Pressable 
+                                    onPress={() => setScannerVisible(true)}
+                                    className="bg-white border border-border size-12 rounded-xl items-center justify-center shadow-sm active:bg-slate-50"
+                                >
+                                    <Camera color="#081126" size={22} />
+                                </Pressable>
                             </View>
 
                             {/* Horizontal Categories */}
@@ -1134,6 +1170,64 @@ export default function PosCashierScreen() {
                 </AnimatedModal>
 
             </SafeAreaView>
+
+            {/* BARCODE SCANNER OVERLAY */}
+            {scannerVisible && (
+                <View className="absolute inset-0 bg-black z-50 justify-center items-center">
+                    {hasPermission === null ? (
+                        <View className="items-center px-6">
+                            <Text className="text-white text-base font-sans-bold text-center">Requesting camera permission...</Text>
+                        </View>
+                    ) : hasPermission === false ? (
+                        <View className="items-center px-6">
+                            <Text className="text-white text-base font-sans-bold text-center mb-4">No access to camera</Text>
+                            <Pressable 
+                                onPress={() => setScannerVisible(false)}
+                                className="bg-white/20 px-4 py-2 rounded-xl"
+                            >
+                                <Text className="text-white font-sans-bold text-xs">Close</Text>
+                            </Pressable>
+                        </View>
+                    ) : (
+                        <>
+                            <BarCodeScanner
+                                onBarCodeScanned={handleBarCodeScanned}
+                                style={StyleSheet.absoluteFill}
+                            />
+                            
+                            {/* Overlay UI */}
+                            <SafeAreaView className="flex-1 justify-between p-6 w-full h-full">
+                                <View className="flex-row justify-between items-center">
+                                    <Text className="text-white font-sans-bold text-lg">Scan Barcode</Text>
+                                    <Pressable 
+                                        onPress={() => setScannerVisible(false)}
+                                        className="bg-white/20 p-2.5 rounded-full"
+                                    >
+                                        <X color="white" size={22} />
+                                    </Pressable>
+                                </View>
+                                
+                                {/* Target frame indicator */}
+                                <View className="items-center justify-center">
+                                    <View className="border-2 border-accent w-64 h-64 rounded-3xl opacity-80" />
+                                    <Text className="text-white/80 text-xs font-sans-medium mt-4 text-center">
+                                        Align barcode within the frame to scan
+                                    </Text>
+                                </View>
+                                
+                                <View className="mb-6 items-center">
+                                    <Pressable 
+                                        onPress={() => setScannerVisible(false)}
+                                        className="bg-red-500 px-6 py-3 rounded-full shadow-lg active:bg-red-600"
+                                    >
+                                        <Text className="text-white font-sans-bold text-sm">Cancel Scan</Text>
+                                    </Pressable>
+                                </View>
+                            </SafeAreaView>
+                        </>
+                    )}
+                </View>
+            )}
         </LinearGradient>
     );
 }
